@@ -1,0 +1,172 @@
+<extend name='Public/base' />
+<block name='style'>
+	<link href="__PUBLIC__/css/H-ui.min.css" rel="stylesheet" type="text/css" />
+	<link href="__PUBLIC__/css/H-ui.admin.css" rel="stylesheet" type="text/css" />
+	<link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css" />
+	<link href="__PUBLIC__/lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="__PUBLIC__/lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+	<style type="text/css">
+		.Pagination a:hover,.current{background-color: #f54281;border: 1px solid #f54281;color: #ffffff; }
+		.Pagination{float: right;height: auto;_height: 45px; line-height: 20px;margin-right: 15px;_margin-right: 5px; color:#565656;margin-top: 10px;_margin-top: 20px; clear:both;}
+		.Pagination a,.Pagination span{ font-size: 14px;text-decoration: none;display: block;float: left;color: #565656;border: 1px solid #ccc;height: 34px;line-height: 34px;margin: 0 2px;width: 34px;text-align: center;}
+	</style>
+	
+	<link href="__PUBLIC__/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+</block>
+
+	<block name='main'>
+		<!-- <div class="pos-a" style="width:150px;left:0;top:0; bottom:0; height:100%; border-right:1px solid #e5e5e5; background-color:#f5f5f5">
+	<ul id="treeDemo" class="ztree">
+	</ul>
+</div> -->
+<div>
+	<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 广告管理 <span class="c-gray en"></span>  <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+	<div class="pd-20">
+		
+		<!-- Button trigger modal -->
+		<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+		  添加广告
+		</button>
+
+			<!-- 添加广告的功能 -->
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">close</span></button>
+			        <h4 class="modal-title" id="myModalLabel">添加广告内容</h4>
+			      </div>
+			      
+			      <form action="./Advertise/inadd" method="POST" >
+			      <div class="modal-body">
+						<div class="input-group">
+						  <input type="text" class="form-control" name="name" placeholder="字母不低于4不超过12，包括中文" required="required" pattern="[\u4e00-\u9fa5_a-zA-Z0-9_]{4,10}">
+						  <span class="input-group-addon">请输入广告投资商 例如:百度、联想、华为等</span>
+						  <input type="text" class="form-control" name="address" placeholder="例如:http://www.xxx.com" required="required" pattern="[a-zA-z]+://[^\s]*">
+						  <span class="input-group-addon">请输入要链接的地址   PS:必须是网页格式</span>
+						  <input type="text" class="form-control" name="common" placeholder="字母不低于4不超过16，包括中文" required="required" pattern="[\u4e00-\u9fa5_a-zA-Z0-9_]{4,12}">
+						  <span class="input-group-addon">页面显示的内容 例如:要肾好 用肾宝</span>
+						</div>
+			      </div>
+
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			        <input type="submit" class="btn btn-primary"  value="提交"/>
+			      </div>
+			      </form>
+			    </div>
+
+			  </div>
+			</div>
+
+		<div class="mt-20">
+			<table class="table table-border table-bordered table-bg table-hover table-sort">
+				<thead>
+					<tr class="text-c">
+						<th width="40"><input name="" type="checkbox" value=""></th>
+						<th width="40">ID</th>
+						<th width="100">广告名称</th>
+						<th>URL描述</th>
+						<th>URL地址</th>
+						<th width="60">状态值</th>
+						<th width="100">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+				<foreach name="advertise" item="vo">
+					<tr class="text-c va-m">
+						<td><input name="" type="checkbox" value=""></td>
+						<td>{$vo.id}</td>
+						<td>{$vo.name}</td>
+						<td>{$vo.common}</td>
+						<td class="text-l"><a href="{$vo.url}">{$vo.url}</a></td>
+						<td><span class="label label-success radius"><a onclick="status({$vo.status},{$vo.id})" >{$vo.statusname}</a></span></td>
+						<td class="td-manage">						 	
+								 <button type="button" id="bt{$vo.id}" onclick="update({$vo.id})" value="{$vo.id}" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#bianji" >
+							 <i class="Hui-iconfont">&#xe6df;</i>
+							</button>						
+							 <a style="text-decoration:none" class="ml-5"  href="{:U('Del?id='.$vo[id])}" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>
+						 </td>
+					</tr>
+					</foreach>
+					
+				</tbody>
+				<div class="Pagination">{$page}</div>
+			</table>
+		</div>
+	</div>
+</div>
+<!-- 修改广告的功能 -->
+			<div class="modal fade" id="bianji" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">close</span></button>
+			        <h4 class="modal-title" id="myModalLabel">修改广告内容</h4>
+			      </div>
+			      
+			      <form action="../../content_update" method="POST" id="form1">
+			      <div class="modal-body">
+						<div class="input-group">
+						<!-- <input type="hidden" name="id" value="{session()}"> -->
+						
+						<input type="hidden" id="hidden2" name="id" value="">
+						  <input type="text" class="form-control" name="name" placeholder="字母不低于4不超过12，包括中文" required="required" pattern="[\u4e00-\u9fa5_a-zA-Z0-9_]{4,10}"  id="input11">
+						  <span class="input-group-addon">请输入广告投资商 例如:百度、联想、华为等</span>
+						  <input type="text" class="form-control" name="address" placeholder="例如:http://www.xxx.com" required="required" pattern="[a-zA-z]+://[^\s]*"  id="input22">
+						  <span class="input-group-addon">请输入要链接的地址   PS:必须是网页格式</span>
+						  <input type="text" class="form-control" name="common" placeholder="字母不低于4不超过16，包括中文" required="required" pattern="[\u4e00-\u9fa5_a-zA-Z0-9_]{4,10}"  id="input33">
+						  <span class="input-group-addon">页面显示的内容 例如:要肾好 用肾宝</span>
+						</div>
+			      </div>
+
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			        <input type="submit" class="btn btn-primary"  value="提交"/>
+			      </div>
+			      </form>
+			    </div>
+
+			  </div>
+			</div>
+	</block>
+
+	<block name='script'>
+		<script type="text/javascript" src="__PUBLIC__/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/lib/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/lib/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+
+<script type="text/javascript" src="__PUBLIC__/js/H-ui.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/H-ui.admin.js"></script> 
+<script>			
+	function update(id){				
+	$.get("{:U('Advertise/update')}",'id='+id,
+	function(json){ 
+			var obj = jQuery.parseJSON(json);
+			$("#input11").val(obj[0].name),
+			$("#input22").val(obj[0].url),
+			$("#input33").val(obj[0].common),
+			$("#hidden2").val(obj[0].id);									
+			})															
+}
+
+	function status(status,id){	
+
+	question =confirm("确认要修改吗？")
+	if(question !="0"){	
+	$.get("{:U('Advertise/status')}",'status='+status+'&id='+id,
+	function(json){ 
+
+			alert('修改成功');
+			location.reload();					
+			})															
+}
+}
+
+
+</script>
+						
+
+	</block>
+

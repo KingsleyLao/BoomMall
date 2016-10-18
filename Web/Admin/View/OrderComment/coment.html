@@ -1,0 +1,117 @@
+<extend name="Public/base"/>
+<block name="title"><title>商品评论</title></block>
+<block name="main">
+	<div style="text-align:center;font-size:20px" id="tit">商品评论</div>
+	<div class="search">
+		<select name="check" id="check" onchange="change(this)">
+			<option value="undefined">--请选择--</option>
+			<option value="order_id">订单号</option>
+			<option value="comment">评论内容</option>
+			<option value="star">满意度</option>
+			<option value="addtime">评论时间</option>
+			<option value="uid">买家</option>
+		</select>
+		<input type="text" id=
+	"input"	oninput="OnInput (event)" onpropertychange="OnPropChanged (event)" value="" />
+		<span style="color:red">*请输入你选择要搜索的条件</span>
+	</div>
+	<div class="commentList">
+		<div class="table">
+			<table class="table table-hover">
+				<tr>
+					<th>订单号</th>
+					<th>评论时间</th>
+					<th>商品</th>
+					<th>图片</th>
+					<th>满意度</th>
+					<th>评价</th>
+					<th>买家</th>
+					<th>操作</th>
+				</tr>
+			<foreach name="arr" item="vo">
+				<tr>
+					<td>{$vo.order_id}</td>
+					<td>{$vo.addtime}</td>
+					<td>{$vo.gid}</td>
+					<td>{$vo.gid}</td>
+					<td>{$vo.star}</td>
+					<td>{$vo.comment}</td>
+					<td>{$vo.uid}</td>
+					<td>
+						<a href="">删除</a>
+					</td>
+				</tr>
+			</foreach>
+			</table>
+	</div>
+	<!-- 分页 -->
+		</div>
+			<div class="pagination" style="text-align:center">
+				<ul>
+					<li>
+						<a href="javascript:void(0)">{$totalRows} 条记录 {$Think.get.p|default=1}/{$totalPages} 页</a>
+					</li>
+					{$btn}
+				</ul>
+			</div>
+		<script>
+			$('.pagination a').unwrap('div').wrap('<li></li>');
+			$('.pagination span').wrap('<li class="active"></li>');
+		</script>
+</block>
+<block name="foot">这是底部</block>
+
+<block name="script">
+
+    <script type="text/javascript">
+  	//通过下拉框选择所有查询的  
+    var k;
+    	function change(obj){
+    		k=obj.value;
+    		// alert(k);
+    		// alert(obj.value);
+    	}
+    	// alert(k);
+
+		//用OnInput或者OnPropChanged方法监听用户所输入的查询条件
+        function OnInput (event) 
+        {
+            // alert (event.target.value);
+            $.ajax({  
+            url:"__URL__/comment",  
+            type:"get",  
+            data:{"val":event.target.value,'key':k},  
+            success:function(e){
+            		alert(e);
+            		  // $(".table").html(e);         
+            },
+        })  
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Internet Explorer
+        // function OnPropChanged (event) {
+        //     if (event.propertyName.toLowerCase () == "value") {
+        //         alert (event.srcElement.value);
+        //     }
+        // }
+    </script>
+</block>

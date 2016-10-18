@@ -1,0 +1,282 @@
+<extend name="Public/base"/>
+
+<block nam="title">
+	<title>确认订单</title>
+</block>
+
+<block name="style">
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/base.css" type="text/css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/global.css" type="text/css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/header.css" type="text/css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/fillin.css" type="text/css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/footer.css" type="text/css">
+
+	<script type="text/javascript" src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/Home/js/cart2.js"></script>
+</block>
+
+<block name="header">
+	<!-- 页面头部 start -->
+	<div class="header w990 bc mt15">
+		<div class="logo w990">
+			<h2 class="fl"><a href="index.html"><img src="__PUBLIC__/Home/images/logo.png" alt="京西商城"></a></h2>
+			<div class="flow fr flow2">
+				<ul>
+					<li>1.我的购物车</li>
+					<li class="cur">2.填写核对订单信息</li>
+					<li>3.成功提交订单</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- 页面头部 end -->
+</block>
+
+<block name="main">
+		<!-- 主体部分 start -->
+	<div class="fillin w990 bc mt15">
+		<div class="fillin_hd">
+			<h2>填写并核对订单信息</h2>
+		</div>
+
+		<div class="fillin_bd">
+			<!-- 收货人信息  start-->
+			<div class="address">
+				<h3>收货人信息 <a href="javascript:;" id="address_modify">[修改]</a></h3>
+				<input type="hidden" name="addressid" value="{$check['id']}" class="addressid">
+				<!-- 遍历默认地址 -->
+				<div class="address_info">
+					<p><span>{$check['linkman']}</span> <span>{$check['tel']}</span><!-- 王超平  13555555555  --></p>
+					<p><span>{$check['private']}</span> <span>{$check['area']}</span> <span>{$check['road']}</span><!-- 北京 昌平区 西三旗 建材城西路金燕龙办公楼一层 --> </p>
+				</div>
+				<!-- 遍历默认地址结束  -->
+
+				<div class="address_select none">
+					<ul>
+
+					<!-- 这里遍历所有地址开始 -->
+					<foreach name="address" item="v">
+						<li class="cur">
+							<input type="radio" name="address" <if condition="$v['status'] == '1' ">check </if> /><span>{$v['linkman']}</span> <span>{$v['private']}</span> <span>{$v['area']}</span> <span>{$v['road']}</span> <span>{$v['tel']}</span><!-- 王超平 北京市 昌平区 建材城西路金燕龙办公楼一层 13555555555  -->
+							<a href="__URL__/changestatus?id={$v['id']}">设为默认地址</a>
+							<a href="__URL__/addressedit?id={$v['id']}">编辑</a>
+							<a href="__URL__/addressdel?id={$v['id']}">删除</a>
+						</li>
+					</foreach>
+					<!-- 遍历地址结束 -->
+
+						<li><input type="radio" name="address" class="new_address"  />使用新地址</li>
+					</ul>	
+					<form action="" class="none" name="address_form" id="addfrom">
+						<ul>
+							<li>
+								<label for=""><span>*</span>收 货 人：</label>
+								<input type="text" name="linkman" class="txt" />
+							</li>
+							<li>
+								<label for=""><span>*</span>所在地区：</label>
+								 <!-- 省 -->
+							    <select name="sheng" id="sheng" onchange="change(this)">
+							        <option value="">--请选择--</option>
+							    
+							    <foreach name="arr" item="v">
+							        <option value='{$v['id']}'>{$v['name']}</option>";
+							     </foreach>
+
+							    </select>
+
+							    <!-- 市 -->
+							    <select name="shi" id="shi" onchange="change(this)">
+							        <option value="">--请选择--</option>
+							    </select>
+
+							    <!-- 区 -->
+							    <select name="qu" id="qu">
+							        <option value="">--请选择--</option>
+							    </select>
+							</li>
+							<li>
+								<label for=""><span>*</span>详细地址：</label>
+								<input type="text" name="road" class="txt address"  />
+							</li>
+							<li>
+								<label for=""><span>*</span>手机号码：</label>
+								<input type="text" name="tel" class="txt" />
+							</li>
+						</ul>
+					</form>
+					<a href="javascript:;" class="confirm_btn" id="usermess"><span>保存收货人信息</span></a>
+				</div>
+			</div>
+			<!-- 收货人信息  end-->
+
+		
+
+			<!-- 商品清单 start -->
+			<div class="goods">
+				<h3>商品清单</h3>
+				<table>
+					<thead>
+						<tr>
+							<th class="col1">商品</th>
+							<th class="col2">规格</th>
+							<th class="col3">价格</th>
+							<th class="col4">数量</th>
+							<th class="col5">小计</th>
+						</tr>	
+					</thead>
+					<input type="hidden" name="goods" class="goodsdetail" value="{$goods}">
+					<tbody>
+						<!-- {$allTotal=0} -->
+				<foreach name="goods" item="v">
+						<tr>
+							<td class="col1"><a href="javascript:;"><img src="__PUBLIC__{$v['goodspic']}" alt="{$v['goodsname']}" /></a>  <strong><a href="javascript:;">{$v['goodsname']}</a></strong></td>
+							<td class="col2"> <p>颜色：{$v['color']}</p> <p>尺码：{$v['size']}</p> </td>
+							<td class="col3">¥{$v['price']}</td>
+							<td class="col4"> {$v['number']}</td>
+							<td class="col5"><span>¥{$v['total']}</span></td>
+						</tr>
+						<!-- {$allTotal += $v['total']} -->
+				</foreach>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="5">
+								<ul>
+									<li>
+										<span>{$count} 件商品，总商品金额：</span>
+										<em>￥{$allTotal}</em>
+									</li>
+									<li>
+										<span>运费：</span>
+										<em>￥0.00</em>
+									</li>
+									<li>
+										<span>应付总额：</span>
+										<em>￥{$allTotal}</em>
+									</li>
+								</ul>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+			<!-- 商品清单 end -->
+		</div>
+
+		<div class="fillin_ft">
+			<a href="javascript:;" class="offer"><span>提交订单</span></a>
+			<p>应付总额：<strong>￥{$allTotal}元</strong></p>
+		</div>
+	</div>
+	<!-- 主体部分 end -->
+
+	<script>
+
+	//三级联动
+    function change(obj) {
+        //获取你选中的省的value值（ID）
+        // alert(obj.value);
+        //ajax 使用
+        var ajax = new XMLHttpRequest();
+        ajax.open('get', "__URL__/getaddress?pid="+obj.value, true);
+        ajax.send();
+        ajax.onreadystatechange = function(){
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                var res = ajax.responseText;
+                // alert(res);
+                //将json格式的字符串转换为js的对象
+                // eval();
+                var list = JSON.parse(res);
+                var str = '<option value="">--请选择--</option>';
+                for (var k in list) {
+                    str += '<option value="'+ list[k]['id'] +'">'+ list[k]['name'] +'</option>'
+                }
+
+                if ($(obj).nextAll('select').length == 2) {
+                    //处理市：
+                    //1.在后台遍历好，ajax拿到的字符串直接放到对象的innerHTML里面
+                    //2.在后台输出一个json格式的字符串，到前台转换为对象，用js遍历
+                    // alert(res);
+                    $('#shi').html(str);
+                    // $('#qu')[0].length = 1;
+
+                    //等效上一行
+                    var qu = document.getElementById('qu');
+                    qu.length = 1;
+                } else {
+                    //处理区
+                    $('#qu').html(str);
+                }
+            }
+        };
+    }
+
+
+</script>
+<script>
+
+$('#usermess').click(function(){
+		var data = $('#addfrom').serialize();
+		$.ajax({
+			type:'get',
+			url:'addaddres',
+			data:data,
+			datatype:'json',
+			success:function(res){
+				alert('添加成功');
+				window.location.href="index";
+
+			},
+			error:function(){
+				alert('添加失败');
+			},
+
+		});
+	});
+
+
+	$('.offer').click(function(){
+		var total = {$allTotal};
+		var addressid = $('.addressid').val();
+		// alert(addressid);
+		// var userid = {};
+		$.get('__URL__/checkSta',function(res){
+
+			if (res == 1) {
+				$.ajax({
+					type:'get',
+					url:'addorder',
+					data:{'addressid':addressid,'total':total},
+					datatype:'json',
+					success:function(){
+						// alert(res);
+						
+						window.location.href="__URL__/flow";
+						
+						
+					},
+					error:function(){
+						alert('添加失败');
+					},
+
+				});
+			} else {
+
+
+					alert('请填写收货人信息');
+
+			}
+
+
+		});
+
+	})
+
+    
+</script>
+</block>
+
+<block name="bottom">
+</block>
+

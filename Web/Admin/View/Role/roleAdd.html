@@ -1,0 +1,182 @@
+﻿<extend name="Public/base" />
+
+<block name="style">
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__PUBLIC__/css/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+</block>
+
+<block name="title">
+<title>新建网站角色</title>
+</block>
+
+</head>
+<body>
+
+<block name="main">
+<div class="pd-20">
+	<form action="" method="post" class="form form-horizontal" id="form-user-character-add">
+		
+		
+
+		<div class="row cl">
+			<label class="form-label col-2"><span class="c-red">*</span>角色名称：</label>
+			<div class="formControls col-10">
+				<input type="text" class="input-text" value="{$roleName}" placeholder="" id="roleName" name="roleName" datatype="*4-16" >
+			</div>
+		</div>
+		
+		<div class="row cl">
+			<label class="form-label col-2">网站角色：</label>
+			<div class="formControls col-10">
+				<foreach name="authInfoA" item="v">
+				<dl class="permission-list">
+					<dt>
+						<label>
+							{$v.auth_name}</label>
+					</dt>
+					
+					<dd>						
+						<dl class="cl permission-list2">
+							
+							<dt>
+								<label class="">
+									<input type="checkbox" value="{$v.auth_id}" name="auth_id[]" id="user-Character-0-0" 
+
+									<in name="v.auth_id" value="$have_ids">
+									checked
+									</in>
+									>
+									{$v.auth_name}</label>
+							</dt>
+							<dd>
+								|
+
+								<foreach name="authInfoB" item="vo">
+								<eq name="v.auth_id" value="$vo.auth_pid">
+								<label class="">
+									
+									<input type="checkbox" value="{$vo.auth_id}" name="auth_id[]" id="user-Character-0-0-0" >
+									{$vo.auth_name}</label>
+
+								</eq>
+								</foreach>
+							</dd>
+						</dl>
+					</dd>
+				</dl>
+				</foreach>
+			</div>
+		</div>
+	</form>
+		<div class="row cl">
+			<div class="col-10 col-offset-2">
+				<button type="submit" class="btn btn-success radius" id="admin-role-save" ><i class="icon-ok"></i> 确定</button>
+			</div>
+		</div>
+</div>
+</block>
+
+<block name="footer"></block>
+</body>
+</html>
+
+<block name="script">
+<script type="text/javascript" src="__PUBLIC__/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/lib/layer/1.9.3/layer.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/lib/laypage/1.2/laypage.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/lib/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/H-ui.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/H-ui.admin.js"></script> 
+<script>
+$(function(){
+	$(".permission-list dt input:checkbox").click(function(){
+		$(this).closest("dl").find("dd input:checkbox").prop("checked",$(this).prop("checked"));
+	});
+	$(".permission-list2 dd input:checkbox").click(function(){
+		var l =$(this).parent().parent().find("input:checked").length;
+		var l2=$(this).parents(".permission-list").find(".permission-list2 dd").find("input:checked").length;
+		if($(this).prop("checked")){
+			$(this).closest("dl").find("dt input:checkbox").prop("checked",true);
+			$(this).parents(".permission-list").find("dt").first().find("input:checkbox").prop("checked",true);
+		}
+		else{
+			if(l==0){
+				$(this).closest("dl").find("dt input:checkbox").prop("checked",false);
+			}
+			if(l2==0){
+				$(this).parents(".permission-list").find("dt").first().find("input:checkbox").prop("checked",false);
+			}
+		}
+
+
+		});
+		$('#admin-role-save').click(function(){
+			
+			var name = $('#roleName').val();
+			if(isNull(name)){
+
+
+				layer.msg('角色名不能为空',{icon:8,time:1000});
+
+
+			} else {
+
+				var aaaa =  $("form").serialize();
+				$.ajax({
+	   				type: "POST",
+	   				url: "__URL__/roleAdd",
+	   				data: aaaa,
+	   				success: function(msg){
+	 
+	    				// alert(msg);
+	    				if(msg){
+
+
+	    					layer.msg('添加成功',{icon:1,time:1000});
+	    					setTimeout(function(){
+
+								parent.location.reload();
+
+	    					},1000)
+							
+	    				} else {
+
+	    					layer.msg('添加失败',{icon:2,time:1000});
+
+	    				}
+
+
+	  				 }
+				});
+
+				
+			}
+
+
+			
+
+		});
+	
+});
+
+
+function isNull( str ){
+	if ( str == "" ) return true;
+	var regu = "^[ ]+$";
+	var re = new RegExp(regu);
+	return re.test(str);
+}
+</script>
+
+</block>

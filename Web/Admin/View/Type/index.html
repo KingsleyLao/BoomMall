@@ -1,0 +1,41 @@
+<extend name='Public/base' />
+
+<block name='title'>
+	<title>商品类型</title>
+</block>
+
+<block name='style'>
+	<link href="__PUBLIC__/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+</block>
+
+<block name='main'>
+	<div class="row">
+		<div style="margin-top:20px" class="container col-md-3 col-md-offset-5">
+			<button type="button" class="btn btn-primary "><a href="{:U('Type/addType')}" style="color:white">添加新商品类型</a></button>
+		</div>
+		<div class="container col-md-8" style="margin-top:60px">
+				<table class="table  table-bordered table-hover table-striped" >
+					<tr>
+						<th>ID</th>
+						<th>商品类型名称</th>
+						<th>操作</th>
+						
+					</tr>
+
+				<foreach name='data' item='vo'>
+					<tr>
+						<td>{$vo.id}</td>
+						<td>{$vo.name}</td>
+						<td><a href="__URL__/delType/id/{$vo.id}" onclick="return confirm('是否确认删除？？') "><i class='icon-trash'></i></a>|<a href="__URL__/editType/id/{$vo.id}"><i class='icon-pencil'></i></a>|<a href="__MODULE__/Attributes/index/id/{$vo.id}">类型属性</a>|<a href="__MODULE__/Attributes/index/id/{$vo.id}">类型规格</a>
+						</td>
+					</tr>
+				</foreach>
+			</table>
+		</div>
+	</div>
+</block>
+
+<block name='script'>
+	<script src="__PUBLIC__/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.7.2.min.js"></script>
+</block>

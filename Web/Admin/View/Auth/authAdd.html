@@ -1,0 +1,181 @@
+﻿<extend name="Public/base" />
+
+<block name="style">
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="__PUBLIC__/css/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+</block>
+
+<block name="title">
+<title>新建网站角色</title>
+</block>
+
+</head>
+<body>
+
+<block name="main">
+<div class="pd-20">
+	<form action="" method="post" class="form form-horizontal" id="form-user-character-add">
+		<div class="row cl">
+			<label class="form-label col-2"><span class="c-red">*</span>权限名称：</label>
+			<div class="formControls col-10">
+				<input type="text" class="input-text" value="" placeholder="" id="auth_name" name="auth_name" datatype="*4-16" nullmsg="权限不能为空">
+			</div>
+		</div>
+		
+
+		<div class="row cl">
+			<label class="form-label col-2">权限上级：</label>
+			<div class="formControls col-10">
+				<select id="pid" name="pid" onchange="sel(this)">
+					<option value="0" selected>顶级</option>
+					
+					<foreach name="authInfo" item="v">
+					<option value="{$v.auth_id}">{$v.auth_name}</option>
+
+					</foreach>
+				</select>
+			</div>
+		</div>
+
+
+
+
+		<div class="row cl">
+			<label class="form-label col-2 ">控制器：</label>
+			<div class="formControls col-10">
+				<input type="text" class="input-text test123" value="" placeholder="" id="" name="auth_c" readonly="readonly" onclick="ale()" style="background:rgba(0,0,0,0.1)">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-2">操作方法：</label>
+			<div class="formControls col-10">
+				<input type="text" class="input-text test123" value="" placeholder="" id="" name="auth_a" readonly="readonly" onclick="ale()" style="background:rgba(0,0,0,0.1)">
+			</div>
+		</div>
+		
+	</form>
+		<div class="row cl" style="margin-top:10px">
+			<div class="col-10 col-offset-2">
+				<button class="btn btn-success radius" id="admin-role-save" >
+					<i class="icon-ok"></i> 确定
+				</button>
+			</div>
+		</div>
+</div>
+</block>
+
+<block name="footer"></block>
+</body>
+</html>
+
+<block name="script">
+<script type="text/javascript" src="__PUBLIC__/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/lib/layer/1.9.3/layer.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/lib/laypage/1.2/laypage.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/lib/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/H-ui.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/H-ui.admin.js"></script> 
+<script>
+$(function(){
+	
+	$('#admin-role-save').click(function(){
+
+		var auth_name = $('#auth_name').val();
+		var pid = $('#pid').val();
+		var inp1 = $('.test123').eq(0).val();
+		var inp2 = $('.test123').eq(1).val();
+		// alert(inp1);
+		// alert(inp2);
+		var data = $('form').serialize();
+
+		if(isNull(auth_name)){
+
+			layer.msg('权限名称不能为空',{icon:8,time:1000});
+		} else {
+			if(pid == '0' ){
+				
+				$.post('{:U('Auth/authAdd')}',data,function(res){
+
+					if(res){
+						layer.msg('添加成功',{icon:1,time:1000});
+						setTimeout(function(){
+
+							parent.location.reload();
+
+							
+						},1000);
+					} else{
+						layer.msg('添加失败',{icon:2,time:1000});
+
+					}
+				});			
+			} else if(isNull(inp1) || isNull(inp2) ){
+
+				layer.msg('方法或者不能为空',{icon:8,time:1000});
+
+			} else {
+				$.post('{:U('Auth/authAdd')}',data,function(res){
+
+					if(res){
+						layer.msg('添加成功',{icon:1,time:1000});
+						setTimeout(function(){
+
+							parent.location.reload();
+
+							
+						},1000);
+						
+					} else{
+
+						layer.msg('添加失败',{icon:2,time:1000});
+					}
+				});	
+				
+			}
+
+
+
+			
+		}
+	});
+
+});
+
+function isNull( str ){
+	if ( str == "" ) return true;
+	var regu = "^[ ]+$";
+	var re = new RegExp(regu);
+	return re.test(str);
+}
+
+function sel(obj) {
+		var a = $(obj).val();
+		if (a != '0') {
+			$('.test123').attr({'readonly':null,'onclick':null}).css('background','');
+
+
+		} else{
+
+			$('.test123').attr({'readonly':'readonly','onclick':'ale()'}).val('').css('background','rgba(0,0,0,0.1)');
+		}
+}
+
+function ale () 
+{
+	layer.msg('不需要填写',{icon:8,time:1000});
+}
+
+</script>
+
+</block>

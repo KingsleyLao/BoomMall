@@ -1,0 +1,40 @@
+<extend name='Public/base' />
+
+<block name='title'>
+	<title>商品类型</title>
+</block>
+
+<block name='style'>
+	<link href="__PUBLIC__/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+</block>
+
+<block name='main'>
+	<div class="row">
+		<div style="margin-top:20px" class="container col-md-3 col-md-offset-5">
+			<button type="button" class="btn btn-primary "><a href="__URL__/addAttributes/id/{$id}" style="color:white">添加属性</a></button>
+		</div>
+		<div class="container col-md-8" style="margin-top:60px">
+				<table class="table  table-bordered table-hover table-striped" >
+					<tr>
+						<th>属性名称</th>
+						<th>商品类型</th>
+						<th>操作</th>
+						
+					</tr>
+
+				<foreach name='data' item='vo'>
+					<tr>
+						<td>{$vo.attr_name}</td>
+						<td>{$vo.name}</td>
+						<td><a href="__URL__/delAttr/id/{$vo.id}" onclick="return confirm('是否确认删除？？') "><i class='icon-trash'></i></a>|<a href="__URL__/editAttr/ed/{$vo.id}/id/{$id}"><i class='icon-pencil'></i></a>
+					</tr>
+				</foreach>
+			</table>
+		</div>
+	</div>
+</block>
+
+<block name='script'>
+	<script src="__PUBLIC__/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.7.2.min.js"></script>
+</block>

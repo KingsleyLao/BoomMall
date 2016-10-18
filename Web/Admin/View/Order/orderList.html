@@ -1,0 +1,77 @@
+<extend name="Public/base"/>
+<block name='title'>
+	<title>订单列表</title>
+</block>
+
+<block name='main'>
+<div>
+	<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 订单管理 <span class="c-gray en">&gt;</span> 订单列表 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新当前页" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+	<div class="pd-20">
+		<div class="text-c"> 
+			<form action="{:U('Order/orderList')}" method="get">
+			<input type="text" name="word" id="" placeholder=" 收货人 / 订单编号" style="width:250px;height=50px" class="input-text" value="{$Think.get.search}">
+			<button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜订单</button>
+			</form>
+		</div>
+		<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a class="btn btn-primary radius" onclick="order_check('查询订单','order_check.html')" href="javascript:;">导出Excel表格</a></span> <span class="r">共有数据：<strong>{$totalRows}</strong> 条</span> </div>
+		<div class="mt-20">
+			<table class="table table-border table-bordered table-bg table-hover table-sort">
+				<thead>
+					<tr class="text-c">
+						<th>订单号</th>
+						<th>生成时间</th>
+						<th>总金额</th>
+						<th>收货人</th>
+						<th>状态</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+				<foreach name='data' item='vo'>
+					<tr class="text-c va-m">
+						<td>{$vo.order_num}</td>
+						<td>{$vo.addtime}</td>
+						<td>{$vo.total}</td>
+						<td>{$vo.linkman}</td>
+
+						<td>{$status[$vo['orderstatus']]}</td>
+
+
+						<td>
+							<a href="{:U('Order/detail', ['id'=>$vo['id']])}">查看详情</a>||
+							<a href="{:U('Order/del', ['id'=>$vo['id']])}" onclick="return confirm('确认要删除？')">删除</a>
+						 </td>
+					</tr>
+				</foreach>
+					<tr class="text-c va-m" id="tr-bianli">
+						<td colspan="2" class="td-manage">
+							<a style="text-decoration:none" href="javascript:void(0)">{$totalRows}条记录{$Think.get.p|default=1}/{$totalPages}页</a>
+					
+						</td>
+						<td colspan="5" class="td-manage">{$btn}</td>
+					</tr>
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+	</block>
+
+	</div>
+
+	<!-- 分页 -->
+			<div class="pagination" style="text-align:center">
+				<ul>
+					<li>
+						<a href="javascript:void(0)">{$totalRows} 条记录 {$Think.get.p|default=1}/{$totalPages} 页</a>
+					</li>
+					{$btn}
+				</ul>
+			</div>
+		<script>
+			$('.pagination a').unwrap('div').wrap('<li></li>');
+			$('.pagination span').wrap('<li class="active"></li>');
+		</script>
+</block>
+

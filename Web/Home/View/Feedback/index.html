@@ -1,0 +1,382 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-Hans" lang="zh-Hans"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<title>首页-用户反馈调查</title>
+		<meta name="generator" content="">
+  		<!-- The following line includes template.css and if an RTL-language is used template-rtl.css -->
+        <link rel="stylesheet" type="text/css" media="all" href="__PUBLIC__/Home/style/jquery-ui-custom.css">
+		<link rel="stylesheet" type="text/css" media="all" href="__PUBLIC__/Home/style/template.css">
+	<script type="text/javascript" src="__PUBLIC__/Home/js/index.js"></script>
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/footer.css" type="text/css">
+		<style type="text/css" media="aural tty">
+            progress-graph .zero, progress-graph .graph, progress-graph .cent { display: none; }
+		</style>
+		
+<script type="text/javascript" src="__PUBLIC__/Home/js/jquery.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Home/js/jquery-ui.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Home/js/jquery.ui.touch-punch.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Home/js/survey_runtime.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Home/js/template.js"></script>
+<link href="" rel="shortcut icon">    	
+</head>
+<body class="default lang-zh-Hans allinone showqnumcode-X">
+    <div class="outerframe">
+        <table class="innerframe">
+            <tbody><tr>
+                <td>
+<form id="limesurvey" name="limesurvey"  action="__URL__/add1" method="post">
+
+            <!-- INPUT NAMES -->
+            <input type="hidden" name="fieldnames" value="" id="fieldnames">
+    <script type="text/javascript">
+    <!--
+        // register the standard (last) onsubmit handler *first*
+        document.limesurvey.onsubmit = std_onsubmit_handler;
+    -->
+    </script><table class="welcome-table">
+	<tbody><tr>
+		<td class="survey-description">
+        	<noscript>&lt;span class='warningjs'&gt;注意：您的浏览器已禁用JavaScript。您可能无法回答调查中所有的问题。请核实浏览器参数。&lt;/span&gt;</noscript>
+                 
+			<h1>首页-用户反馈调查</h1>
+			<p class="surveydescription"></p>
+		</td>
+	</tr>
+	<tr>
+		<td class="survey-welcome">
+			<span class="surveywelcome">尊敬的用户：&nbsp;
+<p>
+	您好！为了给您提供更好的服务，我们希望收集您使用<strong><span style="color: rgb(255, 0, 0);">首页</span></strong>时的看法或建议。对您的配合和支持表示衷心感谢！</p>
+</span>
+			<span class="x-questions"></span>
+		</td>
+	</tr>
+</tbody></table>
+
+<input type="text" id="runonce" value="0" style="display: none;">
+        <!-- JAVASCRIPT FOR CONDITIONAL QUESTIONS -->
+        <script type="text/javascript">
+        <!--
+var LEMradix='.';
+var numRegex = new RegExp('[^-' + LEMradix + '0-9]','g');
+var intRegex = new RegExp('[^-0-9]','g');
+            function fixnum_checkconditions(value, name, type, evt_type, intonly)
+            {
+                newval = new String(value);
+                if (typeof intonly !=='undefined' && intonly==1) {
+                    newval = newval.replace(intRegex,'');
+                }
+                else {
+                    newval = newval.replace(numRegex,'');
+                }
+                if (LEMradix === ',') {
+                    newval = newval.split(',').join('.');
+                }
+                if (newval != '-' && newval != '.' && newval != '-.' && newval != parseFloat(newval)) {
+                    newval = '';
+                }
+                displayVal = newval;
+                if (LEMradix === ',') {
+                    displayVal = displayVal.split('.').join(',');
+                }
+                if (name.match(/other$/)) {
+                    $('#answer'+name+'text').val(displayVal);
+                }
+                $('#answer'+name).val(displayVal);
+
+                if (typeof evt_type === 'undefined')
+                {
+                    evt_type = 'onchange';
+                }
+                checkconditions(newval, name, type, evt_type);
+            }
+
+            function checkconditions(value, name, type, evt_type)
+            {
+                if (typeof evt_type === 'undefined')
+                {
+                    evt_type = 'onchange';
+                }
+                if (type == 'radio' || type == 'select-one')
+                {
+                    $('#java'+name).val(value);
+                }
+                else if (type == 'checkbox')
+                {
+                    if ($('#answer'+name).is(':checked'))
+                    {
+                        $('#java'+name).val('Y');
+                    } else
+                    {
+                        $('#java'+name).val('');
+                    }
+                }
+                else if (type == 'text' && name.match(/other$/))
+                {
+                    $('#java'+name).val(value);
+                }
+                ExprMgr_process_relevance_and_tailoring(evt_type,name,type);            }
+        // -->
+        </script>
+
+<!-- START THE GROUP -->
+
+
+<div id="group-0">
+<input type="hidden" name="screen" id="screen" value="1366x768">
+<table class="group">
+	<tbody><tr>
+		<td align="center">
+			<br>
+			<div class="left"><span class="group-name"></span></div>
+			<br>
+
+			<!-- <span class="group-description"></span> -->
+			
+
+
+<!-- PRESENT THE QUESTIONS -->
+                <div id="question25068" class="text-long">
+	<table class="question-wrapper">
+		<tbody><tr>
+						<td class="questiontext">
+							<span class="asterisk"></span><span class="qnumcode">1  </span><strong>如果您在使用<span style="color: rgb(255, 0, 0);">首页</span>时，有什么好或不好的地方，请大声说出来！我们会关注您的反馈，不断优化产品，为您提供更好的服务！</strong><br><span class="questionhelp"></span>
+							
+							<span class="questionhelp" id="vmsg_25068"></span>
+							
+						</td>
+					</tr>
+          				<tr>
+						<td class="survey-question-help">
+							
+						</td>
+					</tr>
+					<tr>
+						<td class="answer">
+							<p class="question answer-item text-item  inputwidth-70"><label for="content" class="hide label">答案</label><textarea class="textarea  empty" name="content" id="content" alt="答案" rows="8" cols="70" onkeyup="checkconditions(this.value, this.name, this.type)"></textarea></p>
+
+						</td>
+					</tr>
+					
+				</tbody></table>
+</div>
+                            <div id="question25063" class="list-radio mandatory">
+	<table class="question-wrapper">
+		<tbody><tr>
+						<td class="questiontext">
+							<span class="asterisk">*</span><span class="qnumcode">2  </span><strong>您对<span style="color:#ff0000;">首页</span>的整体满意度如何？</strong><br><span class="questionhelp"></span>
+							
+							<span class="questionhelp" id="vmsg_25063"></span>
+							
+						</td>
+					</tr>
+          				<tr>
+						<td class="survey-question-help">
+							
+						</td>
+					</tr>
+					<tr>
+						<td class="answer">
+							
+<ul class="answers-list radio-list">
+	
+
+	<li id="javatbdnum1" class="answer-item radio-item">
+
+	
+		<input class="radio" type="radio" value="0" name="num" id="answernum1" onclick="if (document.getElementById(&#39;answernumothertext&#39;) != null) document.getElementById(&#39;answernumothertext&#39;).value=&#39;&#39;;checkconditions(this.value, this.name, this.type)">
+        <label for="answernum1" class="answertext">非常满意</label>
+        	</li>
+	
+
+	<li id="javatbdnum2" class="answer-item radio-item">
+
+	
+		<input class="radio" type="radio" value="1" name="num" id="answernum2" onclick="if (document.getElementById(&#39;answernumothertext&#39;) != null) document.getElementById(&#39;answernumothertext&#39;).value=&#39;&#39;;checkconditions(this.value, this.name, this.type)">
+        <label for="answernum2" class="answertext">满意</label>
+        	</li>
+	
+
+	<li id="javatbdnum3" class="answer-item radio-item">
+
+	
+		<input class="radio" type="radio" value="2" name="num" id="answernum3" onclick="if (document.getElementById(&#39;answernumothertext&#39;) != null) document.getElementById(&#39;answernumothertext&#39;).value=&#39;&#39;;checkconditions(this.value, this.name, this.type)">
+        <label for="answernum3" class="answertext">一般</label>
+        	</li>
+	
+
+	<li id="javatbdnum4" class="answer-item radio-item">
+
+	
+		<input class="radio" type="radio" value="3" name="num" id="answernum4" onclick="if (document.getElementById(&#39;answernumothertext&#39;) != null) document.getElementById(&#39;answernumothertext&#39;).value=&#39;&#39;;checkconditions(this.value, this.name, this.type)">
+        <label for="answernum4" class="answertext">不满意</label>
+        	</li>
+	
+
+	<li id="javatbdnum5" class="answer-item radio-item">
+
+	
+		<input class="radio" type="radio" value="4" name="num" id="answernum5" onclick="if (document.getElementById(&#39;answernumothertext&#39;) != null) document.getElementById(&#39;answernumothertext&#39;).value=&#39;&#39;;checkconditions(this.value, this.name, this.type)">
+        <label for="answernum5" class="answertext">非常不满意</label>
+        	</li>
+</ul>
+
+    <input type="hidden" name="javanum" id="javanum" value="">
+
+						</td>
+					</tr>
+					
+				</tbody></table>
+</div>
+            
+
+<!-- END THE GROUP -->
+		</td>
+	</tr>
+</tbody></table>
+
+
+</div>
+
+
+<!-- START THE GROUP -->
+
+
+<div id="group-1">
+<input type="hidden" name="screen" id="screen">
+<table class="group">
+	<tbody><tr>
+		<td align="center">
+			<br>
+			<div class="left"><span class="group-name"></span></div>
+			<br>
+
+			<!-- <span class="group-description"></span> -->
+			
+
+
+<!-- PRESENT THE QUESTIONS -->
+                <div id="question25064" class="multiple-short-txt">
+	<table class="question-wrapper">
+		<tbody><tr>
+						<td class="questiontext">
+							<span class="asterisk"></span><span class="qnumcode">3  </span><p>
+	<strong>我们会不定期邀请用户参与面对面的交流。如果您有意参与，请填写如下信息，方便我们与您联系，谢谢！（信息仅作为内部资料绝不外泄）</strong></p>
+<p>
+	<strong>如果您对的使用体验有任何想法，也欢迎加入我们的<span style="color: rgb(178, 34, 34);">体验交流QQ群（12345678）</span>，输入验证码<span style="我最帅"> jdued </span>即可成为群内一员！我们也会在群内发布访谈邀请的信息哦！</strong></p>
+<br><span class="questionhelp"></span>
+							
+							<span class="questionhelp" id="vmsg_25064"></span>
+							
+						</td>
+					</tr>
+          				<tr>
+						<td class="survey-question-help">
+							<img src="__PUBLIC__/Home/images/help.gif" alt="Help" align="left">由于我们的体验中心在兄弟连广州校区，访谈活动仅限广州地区用户参加，给您带来的不便还请谅解。
+						</td>
+					</tr>
+					<tr>
+						<td class="answer">
+							<ul class="subquestions-list questions-list text-list">
+	
+
+	<li id="javatbdname" class="question-item answer-item text-item">
+
+<label for="answername">姓名</label>
+	<span>
+
+<input class="text  empty" type="text" size="20" name="name" id="answername" value="" onkeyup="checkconditions(this.value, this.name, this.type);">
+
+	</span>
+	</li>
+	
+
+	<li id="javatbdphone" class="question-item answer-item text-item">
+
+<label for="answerphone">手机号</label>
+	<span>
+
+<input class="text  empty" type="text" size="20" name="phone" id="answerphone" value="" onkeyup="checkconditions(this.value, this.name, this.type);">
+
+	</span>
+	</li>
+</ul>
+
+						</td>
+					</tr>
+					
+				</tbody></table>
+</div>
+            
+
+<!-- END THE GROUP -->
+		</td>
+	</tr>
+</tbody></table>
+
+
+</div>
+<script type="text/javascript" src="__PUBLIC__/Home/js/em_javascript.js"></script>
+<script type="text/javascript">
+<!--
+var LEMmode='survey';
+function ExprMgr_process_relevance_and_tailoring(evt_type,sgqa,type){
+if (typeof LEM_initialized == 'undefined') {
+LEM_initialized=true;
+LEMsetTabIndexes();
+}
+if (evt_type == 'onchange' && (typeof last_sgqa !== 'undefined' && sgqa==last_sgqa) && (typeof last_evt_type !== 'undefined' && last_evt_type == 'TAB' && type != 'checkbox')) {
+  last_evt_type='onchange';
+  last_sgqa=sgqa;
+  return;
+}
+last_evt_type = evt_type;
+last_sgqa=sgqa;
+  relChange25068=false;
+  relChange25063=false;
+  relChange25064=false;
+  relChangeG0=false;
+  relChangeG1=false;
+
+}
+//-->
+</script>
+<input type="hidden" id="relevance25068" name="relevance25068" value="1">
+<input type="hidden" id="relevance25063" name="relevance25063" value="1">
+<input type="hidden" id="relevance25064" name="relevance25064" value="1">
+<input type="hidden" id="relevanceG0" name="relevanceG0" value="1">
+<input type="hidden" id="relevanceG1" name="relevanceG1" value="1">
+
+
+<!-- PRESENT THE NAVIGATOR -->
+<table class="navigator-table">
+	<tbody><tr>
+		<td class="save-all">
+						<input type="button" name="loadall" value="继续未完成调查" class="saveall ui-button ui-widget ui-state-default ui-corner-all" onclick="javascript:addHiddenField(document.getElementById(&#39;limesurvey&#39;),&#39;loadall&#39;,this.value);document.getElementById(&#39;limesurvey&#39;).submit();" role="button" aria-disabled="false">
+			<input type="button" name="saveallbtn" value="稍后继续" class="saveall ui-button ui-widget ui-state-default ui-corner-all" onclick="javascript:document.limesurvey.move.value = this.value;addHiddenField(document.getElementById(&#39;limesurvey&#39;),&#39;saveall&#39;,this.value);document.getElementById(&#39;limesurvey&#39;).submit();" role="button" aria-disabled="false">
+		</td>
+		<td class="submit-buttons">
+			<input type="hidden" name="move" value="movenext" id="movenext">	<button class="submit ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="submit" accesskey="l" onclick="javascript:document.limesurvey.move.value = &#39;movesubmit&#39;;" value="提交 " name="move2" id="movesubmitbtn" role="button" aria-disabled="false"><span class="ui-button-text">提交 </span></button>
+
+		</td>
+		<td class="clear-all">
+			<input type="button" name="clearallbtn" value="退出并清除调查" class="clearall ui-button ui-widget ui-state-default ui-corner-all" onclick="if (confirm(&#39;您确定要清除所有反馈吗？&#39;)) {
+window.open(&#39;/index.php?r=survey/index/sid/889711&amp;move=clearall&amp;lang=zh-Hans&#39;, &#39;_self&#39;)}" role="button" aria-disabled="false">
+		</td>
+	</tr>
+</tbody></table>
+<input type="hidden" name="thisstep" value="2" id="thisstep">
+<input type="hidden" name="sid" value="889711" id="sid">
+<input type="hidden" name="start_time" value="1475224282" id="start_time">
+<input type="hidden" name="LEMpostKey" value="1995052769" id="LEMpostKey">
+</form>
+    		</td>
+    	</tr>
+    </tbody></table>
+</div>
+<div style="display:none;"><script src="" language="JavaScript"></script><script src="" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=1259860231" target="_blank" title="站长统计">站长统计</a></div>
+
+
+	
+
+</body></html>

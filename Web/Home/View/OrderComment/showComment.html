@@ -1,0 +1,95 @@
+<extend name="Public/base"/>
+<block name="title"><title>订单页面</title></block>
+
+<block name="style">
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/base.css" type="text/css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/global.css" type="text/css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/header.css" type="text/css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/home.css" type="text/css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/order.css" type="text/css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/bottomnav.css" type="text/css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/footer.css" type="text/css">	
+
+	<script type="text/javascript" src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/Home/js/header.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/Home/js/home.js"></script>
+	<style>
+		.detail div{
+			padding: 10px;
+		}
+		.comment-content dt {
+		  float: left;
+		  width: 62px;
+		  text-align: right;
+		}
+		.comment-content dl {
+		  padding: 10px 0;
+		  overflow: hidden;
+		}
+	</style>
+</block>
+
+<block name="main">
+	<!-- 页面主体 start -->
+	<div class="main w1210 bc mt10">
+		<div class="crumb w1210">
+			<h2><strong>我的XX </strong><span>> 我的订单</span></h2>
+		</div>
+		
+		<!-- 左侧导航菜单 start -->
+		<div class="menu fl">
+			<h3>商品信息</h3>
+			<div class="detail">
+				<div><img src="">{$goods['pic']}</div>
+				<div>商品名称：<span>{$goods['gname']}</span></div>
+				<div>京东价：<span>{$goods['gprice']}</span></div>
+				<div>商品评分：<span>{$comment['star']}星</span></div>
+				<div>评价数：<span>100+条</span></div>
+			</div>
+		</div>
+		<!-- 左侧导航菜单 end -->
+
+		<!-- 右侧内容区域 start -->
+		<div class="content fl ml10">
+			<div class="order_hd">
+				<h3>我的评论</h3>
+			</div>
+
+			<div class="order_bd mt10">
+				<table class="table">
+					<thead>
+						<tr>
+							<th style="text-align:left;">订单号：<span>{$onum}</span></th>
+						</tr>
+					</thead>
+				</table>
+					<div style="border:solid 1px lightgray;margin-top:10px;">
+						<span>等级：{$comment['star']}星</span><br>
+						<span>评论时间：{$comment['addtime']}</span>
+					
+
+					<div class="comment-content">
+                        <dl>
+                            <dt>心&#12288;&#12288;得：</dt>
+                            <dd>{$comment['saycomment']}</dd>
+                        </dl> 
+                        <div class="dl-extra">
+                            <dl>
+                                <dt>购买日期：</dt>
+                                <dd>
+                                	{$bytime}
+                                </dd>
+                            </dl>
+                        </div>                             
+                    </div>
+				</div>
+			</div>
+		</div>
+		<!-- 右侧内容区域 end -->
+	</div>
+	<!-- 页面主体 end-->
+
+	</block>
+	
+
+

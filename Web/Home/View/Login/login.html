@@ -1,0 +1,148 @@
+<extend name="Public/base" />
+	<block name="title">
+	<title>登录商城</title>
+	</block>
+	
+	<block name="style">
+
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/base.css" type="text/css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/global.css" type="text/css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/header.css" type="text/css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/login.css" type="text/css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/footer.css" type="text/css">
+	<script type="text/javascript" src="__PUBLIC__/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script>
+$(function(){
+	$('#denglu').click(function(){
+		var data = $('form').serialize();
+		// alert(data);
+
+		//判断有没有输入内容
+		var inputs = document.getElementsByTagName('input');
+
+		for(var i=0;i<inputs.length;i++){
+		var val = inputs[i].value;
+		if(val == ''){
+				// layer.msg('请完善您的信息',{icon:8,time:1000});
+				// alert('请完善您的信息');
+				$('#err').html('*请完善您的信息');
+				return false;
+			}
+		}
+
+		//判断信息的正确性
+		$.post('__URL__/login',data,function(res){
+			// alert(res);
+			if(res==="aa"){
+				$('#err').html('*验证码错误');
+				// alert('验证码错误');
+			} else if(res === 'bb'){
+
+				$('#err').html('*用户名错误或不存在');
+
+			}else if(res === 'cc'){
+
+				$('#err').html('*密码错误');
+				
+			}else if(res === 'dd'){
+
+				$('#err').html('*用户账户异常,请跟客服联系');
+				
+			}else if(res === 'ee'){
+
+
+				// window.location.href = history.go(-1);
+				self.location=document.referrer;
+			}
+		});
+	});
+
+
+
+});
+	
+</script>
+	</block>
+
+</head>
+<body>
+	<block name="header">
+	</block>
+	
+
+	<block name="main">
+	<!-- 页面头部 start -->
+	<div class="header w990 bc mt15">
+		<div class="logo w990">
+			<h2 class="fl"><a href="__MODULE__/index/index"><img src="__PUBLIC__/Home/images/logo.png" alt="京西商城"></a></h2>
+		</div>
+	</div>
+	<!-- 页面头部 end -->
+	
+	<!-- 登录主体部分start -->
+	<div class="login w990 bc mt10">
+		<div class="login_hd">
+			<h2>用户登录</h2>
+			<b></b>
+		</div>
+		<div class="login_bd">
+			<div class="login_form fl">
+				<form action="" method="post">
+					<ul>
+						<li><div style="height:26px;background:lightred;width:300px;margin-left:60px"><font color="red" size="2" id="err"></font></div></li>
+						<li>
+							<label for="">用户名：</label>
+							<input type="text" class="txt" name="username" />
+						</li>
+						<li>
+							<label for="">密码：</label>
+							<input type="password" class="txt" name="password" />
+							
+						</li>
+						<li class="checkcode">
+							<label for="">验证码：</label>
+							<input type="text"  name="yzm" />
+							
+							<img src="{:U('yzm')}" alt="" onclick="this.src='{:U('yzm')}?id='+Math.random()"/>
+												
+						</li>
+						<li>
+							
+						</li>
+						<li>
+							<label for="">&nbsp;</label>
+							
+						</li>
+					</ul>
+				</form>
+				<button id="denglu" class="reg_btn" style="background:rgb(0,100,255);">登陆</button>
+
+				<div class="coagent mt15">
+					<dl>
+						<dt>使用合作网站登录商城：</dt>
+						<dd class="qq"><a href=""><span></span>QQ</a></dd>
+						<dd class="weibo"><a href=""><span></span>新浪微博</a></dd>
+						<dd class="yi"><a href=""><span></span>网易</a></dd>
+						<dd class="renren"><a href=""><span></span>人人</a></dd>
+						<dd class="qihu"><a href=""><span></span>奇虎360</a></dd>
+						<dd class=""><a href=""><span></span>百度</a></dd>
+						<dd class="douban"><a href=""><span></span>豆瓣</a></dd>
+					</dl>
+				</div>
+			</div>
+			
+			<div class="guide fl">
+				<h3>还不是商城用户</h3>
+				<p>现在免费注册成为商城用户，便能立刻享受便宜又放心的购物乐趣，心动不如行动，赶紧加入吧!</p>
+
+				<a href="__URL__/reg" class="reg_btn">免费注册 >></a>
+			</div>
+
+		</div>
+	</div>
+	<!-- 登录主体部分end -->
+	</block>
+	<block name="bottom">
+	</block>
+
+

@@ -1,0 +1,108 @@
+<extend name="Public/base"/>
+
+<block name="title">
+<title>回复详情</title>
+</block>
+
+<block name="title">
+    <style>
+        #star ul li{
+            float:left;
+            list-style: none;
+            width:27px;
+            height:27px;
+            background:url('__PUBLIC__/images/star.gif');
+        }
+    </style>
+</block>
+
+<block name="main">
+
+  <div class="pd-20" style="border solid red 1px" >
+
+  <foreach name="comment" item="v">
+    <table class="table table-bordered table-bg table-hover table-sort">
+      <tr>
+        <td width="50px"><span>{$v.sayid} </span>于<span>{$v.addtime}</span>对 <span>{$v.gid}</span> 发表了评论
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div>{$v.saycomment}</div>
+          <input type="hidden" class="star">
+          <div>评论等级:{$v.star}星</div>
+        </td>
+      </tr>
+    </table>
+
+    <table class="table table-bordered table-bg table-hover table-sort">
+      <tr>
+        <td width="50px">管理员 <span></span>于 <span>{$v.replaytime}</span> 回复</td>
+      </tr>
+      <tr>
+        <td>{$v.recomment}</td>
+      </tr>
+    </table>
+
+    <table class="table table-bordered table-bg table-hover table-sort">
+      <tr>
+        <td colspan="2">
+          <form action="__URL__/doreplay" method="post" " id="replay_form">
+          <input type="hidden" name="id" value="{$v['id']}">
+            <div class="row cl">
+              <label class="form-label col-3">回复：</label>
+              <div class="formControls col-5">
+                <textarea name="recomment" cols="" rows="" class="textarea"  placeholder="说点什么吧..." ></textarea>
+                <if condition="!empty($v['recomment'])">
+                  <div>提示：此条评论已有回复, 如果继续回复将更新原来回复的内容!</div>
+                </if>
+              </div>
+              <div class="col-4"> </div>
+            </div>
+            <div class="row cl">
+              <div class="col-9 col-offset-3">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+              </div>
+            </div>
+          </form>
+        </td>
+      </tr>
+    </table>
+  </foreach>
+
+  </div>
+</block>
+
+    <block name="script">
+    <script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script> 
+    <script type="text/javascript" src="lib/icheck/jquery.icheck.min.js"></script> 
+    <script type="text/javascript" src="lib/Validform/5.3.2/Validform.min.js"></script> 
+    <script type="text/javascript" src="lib/layer/1.9.3/layer.js"></script> 
+    <script type="text/javascript" src="js/H-ui.js"></script> 
+    <script type="text/javascript" src="js/H-ui.admin.js"></script> 
+    <script type="text/javascript">
+    $(function(){
+      $('.skin-minimal input').iCheck({
+        checkboxClass: 'icheckbox-blue',
+        radioClass: 'iradio-blue',
+        increaseArea: '20%'
+      });
+      
+      $("#form-admin-add").Validform({
+        tiptype:2,
+        callback:function(form){
+          form[0].submit();
+          var index = parent.layer.getFrameIndex(window.name);
+          parent.$('.btn-refresh').click();
+          parent.layer.close(index);
+        }
+      });
+    });
+
+      var starnum = $('.star').val();
+            for (var j = 0; j < starnun; j++) {
+                    lis[j].style.background = 'url(__PUBLIC__/images/star.gif) 0px 27px';
+                    // lis[j].style.background = 'url(__PUBLIC__/images/star.gif)';
+                }
+    </script>
+</block>

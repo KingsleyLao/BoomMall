@@ -1,0 +1,113 @@
+<extend name='Public/base' />
+<block name='title'>
+	<title>品牌修改</title>
+</block>
+
+<block name='style'>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/dropzone.css">
+	<link href="__PUBLIC__/css/H-ui.min.css" rel="stylesheet" type="text/css" />
+	<link href="__PUBLIC__/css/H-ui.admin.css" rel="stylesheet" type="text/css" />
+	<link href="__PUBLIC__/lib/icheck/icheck.css" rel="stylesheet" type="text/css" />
+	<link href="__PUBLIC__/lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+	<link href="__PUBLIC__/lib/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css" />
+</block>
+
+<block name='main'>
+	<div class="pd-20">
+	<form action="{:U('Brand/edit')}" method="post" class="form form-horizontal" id="form-article-add">
+		<input type="hidden" name="ed" value="{$data.id}">
+		<div class="row cl">
+			<label class="form-label col-2"><span class="c-red">*</span>品牌名：</label>
+			<div class="formControls col-10">
+				<input type="text" class="input-text" value="{$data.bname}" placeholder="" id="" name="bname" style="width:40%">
+			</div>
+		</div>
+					
+		<div class="row cl">
+			<label class="form-label col-2">描述：</label>
+			<div class="formControls col-10">
+				<input type="text" name="desc" id="" placeholder="" value="{$data.desc}" class="input-text" style="width:40%">
+			</div>
+		</div> 
+
+		<div class="row cl">
+			<label class="form-label col-2">原图片：</label>
+			<div class="formControls col-10">
+				<img src="__PUBLIC__{$data.pic}" width="80px">
+			</div>
+		</div> 
+
+		 <div class="row cl">
+			<label class="form-label col-2">图片上传：</label>
+			<div class="formControls col-5">
+				<div class="uploader-list-container">	
+              		<div class="dropzone" style="width:50% height:200"></div>
+				</div>
+			</div>
+		</div>
+
+		 <div class="row cl">
+			<div class="col-10 col-offset-2">
+				<button  class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i>添加</button>
+				
+				<button  class="btn btn-default radius" type="reset">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+			</div>
+		</div> 
+	</form>
+</div>
+</block>
+
+<block name='script'>
+<script type="text/javascript" src="__PUBLIC__/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/lib/layer/1.9.3/layer.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/lib/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/lib/icheck/jquery.icheck.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/lib/Validform/5.3.2/Validform.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/lib/webuploader/0.1.5/webuploader.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/lib/ueditor/1.4.3/ueditor.config.js"></script>
+<script type="text/javascript" src="__PUBLIC__/lib/ueditor/1.4.3/ueditor.all.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/H-ui.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/H-ui.admin.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/dropzone.js"></script>
+<script type="text/javascript" src="__PUBLIC__/dropzone/dropzone.min.js"></script>
+<script type="text/javascript">
+	Dropzone.autoDiscover = false;//防止报"Dropzone already attached."的错误
+            $(".dropzone").dropzone({
+                //使用哪个方法来上传
+                url: "__URL__/upload/",
+                //是否可以删除
+                addRemoveLinks: true,
+                //删除的按钮样子
+                dictRemoveLinks: "x",
+                dictCancelUpload: "x",
+                //<input type="file" name="userImg">
+                paramName:"userImg",
+                //最大可以上传多少张
+                maxFiles: 10,
+                //每张图片大小
+                maxFilesize: 5,
+                //允许上传的类型
+                acceptedFiles: "image/*",
+                init: function() {
+                    //res为服务器响应回来的数据
+                    //下面的函数是当上传图片成功后触发
+                    this.on("success", function(file, res) {
+                        //将json字符串转换成json对象
+                        var obj = JSON.parse(res);
+                        console.log(obj); 
+                        if( obj.status == 200 ){
+                        var input = '<input type="hidden" name="img" value="'+obj.details.savepath+obj.details.savename+'" />';
+                        $('.form').append(input);
+                        }else{
+                            alert('上传失败');
+                        }
+                    });
+                    this.on("removedfile", function(file) {
+                        console.log("File " + file.name + "removed");
+                    });
+            }
+    });
+
+</script>
+</block>

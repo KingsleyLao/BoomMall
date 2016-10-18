@@ -1,0 +1,120 @@
+<extend name="Public/base"/>
+<block name="title"><title>订单页面</title></block>
+
+<block name="style">
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/base.css" type="text/css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/global.css" type="text/css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/header.css" type="text/css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/home.css" type="text/css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/order.css" type="text/css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/bottomnav.css" type="text/css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/footer.css" type="text/css">	
+
+	<script type="text/javascript" src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/Home/js/header.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/Home/js/home.js"></script>
+	<style>
+		.usermess .mess{
+		float:left;
+	}
+	</style>
+</block>
+
+<block name="main">
+	<!-- 页面主体 start -->
+	<div class="main w1210 bc mt10">
+		<div class="crumb w1210">
+			<h2><strong>我的XX </strong><span>> 我的订单</span></h2>
+		</div>
+		
+		<!-- 左侧导航菜单 start -->
+		<div class="menu fl">
+			<h3>我的XX</h3>
+			<div class="menu_wrap">
+				<dl>
+					<dt>订单中心 <b></b></dt>
+					<dd class="cur"><b>.</b><a href="">我的订单</a></dd>
+					<dd><b>.</b><a href="">我的关注</a></dd>
+					<dd><b>.</b><a href="">浏览历史</a></dd>
+					<dd><b>.</b><a href="">我的团购</a></dd>
+				</dl>
+
+				<dl>
+					<dt>账户中心 <b></b></dt>
+					<dd><b>.</b><a href="">账户信息</a></dd>
+					<dd><b>.</b><a href="">账户余额</a></dd>
+					<dd><b>.</b><a href="">消费记录</a></dd>
+					<dd><b>.</b><a href="">我的积分</a></dd>
+					<dd><b>.</b><a href="">收货地址</a></dd>
+				</dl>
+
+				<dl>
+					<dt>订单中心 <b></b></dt>
+					<dd><b>.</b><a href="">返修/退换货</a></dd>
+					<dd><b>.</b><a href="{:U('Order/index', ['status'=>4])}">取消订单记录</a></dd>
+					<dd><b>.</b><a href="">我的投诉</a></dd>
+				</dl>
+			</div>
+		</div>
+		<!-- 左侧导航菜单 end -->
+
+		<!-- 右侧内容区域 start -->
+		<div class="content fl ml10">
+			<div class="order_hd">
+				<h3>我的订单</h3>
+				<dl>
+					<dt>便利提醒：</dt>
+					<dd><a href="{:U('Order/index')}">全部状态</a></dd>
+					<dd><a href="{:U('Order/index', ['status'=>0])}">待付款（{$c}）</a></dd>
+					<dd><a href="{:U('Order/index', ['status'=>2])}">待收货（{$c1}）</a></dd>
+					<dd><a href="{:U('Order/index', ['status'=>3])}">已完成（{$c2}）</a></dd>
+				</dl>
+			</div>
+
+			<div class="order_bd mt10">
+					<foreach name="list" item="v">
+				<table class="table" style="border:solid 1px lightgray;margin-bottom:20px;">
+					<thead>
+						<tr>
+							<th>订单号</th>
+							<th>商品详情</th>
+							<th>收货人</th>
+							<th>订单金额</th>
+							<th>下单时间</th>
+							<th>订单状态</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+				
+						<tr>
+							<td><a href="">{$v.order_num}</a></td>
+							<td><a href="{:U('OrderDetail/index',['oid'=>$v['id']])}">订单详情</a></td>
+							<td width="240px">{$v.linkman}</td>
+							<td>{$v.total}</td>
+							<td width="180px">{$v.addtime}</td>
+							<td width="150px;">
+								<if condition="$v['orderstatus'] eq 1 OR ($v['orderstatus'] eq 3)">
+									{$orderstatus[$v[orderstatus]]}
+								<else /> 
+									<a href="{:U('Order/changestatus', ['id'=>$v['id']])}"><button>{$orderstatus[$v[orderstatus]]}</button></a>
+								</if>
+							</td>
+								
+							<td>
+								<a href="{:U('Order/del', ['id'=>$v['id']])}">删除</a>
+							</td>
+						</tr>
+					</tbody> 
+				</table>
+					</foreach>
+
+			</div>
+		</div>
+		<!-- 右侧内容区域 end -->
+	</div>
+	<!-- 页面主体 end-->
+	</block>
+	
+
+

@@ -1,0 +1,143 @@
+<extend name="Public/base"/>
+<block name="title"><title>商品评论</title></block>
+
+<block name="style">
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/base.css" type="text/css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/global.css" type="text/css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/header.css" type="text/css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/home.css" type="text/css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/order.css" type="text/css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/bottomnav.css" type="text/css">
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/footer.css" type="text/css">	
+
+			<script type="text/javascript" src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/Home/js/header.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/Home/js/home.js"></script>
+	<style>
+		.right div{
+			padding: 10px;
+		}
+		.right{
+			float:left;
+			margin-left: 30px;
+		}
+		.class{
+			float:left;
+		}
+		.detail div{
+			padding: 30px;
+		}
+		#star ul li{
+            float:left;
+            list-style: none;
+            width:27px;
+            height:27px;
+            background:url('__PUBLIC__/images/star.gif');
+        }
+	</style>
+</block>
+
+<block name="main">
+	<!-- 页面主体 start -->
+	<div class="main w1210 bc mt10">
+		<div class="crumb w1210">
+			<h2><strong>我的XX </strong><span>> 我的订单</span></h2>
+		</div>
+		
+		<!-- 左侧导航菜单 start -->
+		<div class="menu fl">
+			<div class="detail">
+			<input type="hidden" id="goodsid" value="{$goods['gid']}">
+			<input type="hidden" id="oid" value="{$oid}">
+				<div><img src="__PUBLIC__/{$goods['gpic']}" title="{$goods['gname']}" width="200px"></div>
+				<div>商品名称：<span>{$goods['gname']}({$goods['color']} {$goods['size']})</span></div>
+				<div>京东价：<span>{$goods['gprice']}</span></div>
+			</div>
+		</div>
+		<!-- 左侧导航菜单 end -->
+
+		<!-- 右侧内容区域 start -->
+		<div class="right">
+			<!-- 上面 -->
+			<div>
+				<div>订单号：<span class="onum">{$onum}</span></div>
+				<div>商品满意度</div>
+				<div id="star">
+				    <ul>
+				        <li></li>
+				        <li></li>
+				        <li></li>
+				        <li></li>
+				        <li></li>
+				    </ul>
+				</div>
+			</div>
+			<div>
+				<div>评价晒单</div>
+				<div>
+					<textarea name="" id="t2" cols="50" rows="5"></textarea>
+				</div>
+			</div>
+
+			<div><button id="test1">提交评论</button></div>
+		</div>
+		<!-- 右侧内容区域 end -->
+	</div>
+	<!-- 页面主体 end-->
+	<script>
+
+
+
+		//星级评价js特效
+		var ul = document.getElementById('star');
+	    var lis = ul.getElementsByTagName('li');
+	    var star = 0;
+	    for (var i = 0,len = lis.length; i < len; i++) {
+	        //将自增变量i存储在对象中
+	        lis[i].index = i;
+	        lis[i].onmouseover = function(){
+	            for (var j = 0; j < lis.length; j++) {
+	                if (j <= this.index) {
+	                    lis[j].style.background = "url('__PUBLIC__/images/star.gif') 0px 27px";
+	                } else {
+	                    lis[j].style.background = "url('__PUBLIC__/images/star.gif') ";
+	                }
+	            }
+	        };
+	        lis[i].onclick = function(){
+	            alert(this.index + 1 + '分');
+	            star = this.index + 1;
+	               
+	            
+
+	        };
+	    }
+
+	    	// var text = $('#t2').val();
+	    	var onum = $('.onum').html();
+	    	var gid = $('#goodsid').val();
+	    	var oid = $('#oid').val();
+
+	    	// alert(text);
+	    $('#test1').click(function(){
+	    	// alert($('#t2').val();
+
+	    	$.post("{:U('OrderComment/adddis')}",{'gid':gid,'text':$('#t2').val(),'onum':onum,'star':star,'oid':oid},function(res){
+	    		// alert(res);
+	    		if (res) {
+	    			window.location.href="__URL__/untilcomment";
+	    		}else{
+	    			alert('评论失败');
+	    		}
+	    	});
+	    });
+
+
+
+
+
+	</script>
+</block>
+	
+
+
